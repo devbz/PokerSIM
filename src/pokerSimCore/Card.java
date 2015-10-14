@@ -25,6 +25,22 @@ public class Card implements Comparator<Card> {
 			case 0:
 				return "";
 			case 1:
+				return "\u2764";
+			case 2:
+				return "\u2660";
+			case 3:
+				return "\u2663";
+			case 4:
+				return "\u2666";
+			}
+			return "Joker";
+		}
+		
+		public String fullName() {
+			switch (i) {
+			case 0:
+				return "";
+			case 1:
 				return "Hearts";
 			case 2:
 				return "Spades";
@@ -59,7 +75,7 @@ public class Card implements Comparator<Card> {
 		
 		public int getRanksNum() { return r; }
 		
-		public String toString() {
+		public String fullName() {
 			switch (r) {
 			case 0:
 				return "";
@@ -95,6 +111,78 @@ public class Card implements Comparator<Card> {
 			return "Joker";
 		}
 		
+		public String toString() {
+			switch (r) {
+			case 0:
+				return "";
+			case 2:
+				return "2";
+			case 3:
+				return "3";
+			case 4:
+				return "4";
+			case 5:
+				return "5";
+			case 6:
+				return "6";
+			case 7:
+				return "7";
+			case 8:
+				return "8";
+			case 9:
+				return "9";
+			case 10:
+				return "10";
+			case 11:
+				return "J";
+			case 12:
+				return "Q";
+			case 13:
+				return "K";
+			case 14:
+				return "A";
+			default:
+				break;
+			}
+			return "Joker";
+		}
+			
+		public String toHold() {
+			switch (r) {
+			case 0:
+				return "";
+			case 2:
+				return "2";
+			case 3:
+				return "3";
+			case 4:
+				return "4";
+			case 5:
+				return "5";
+			case 6:
+				return "6";
+			case 7:
+				return "7";
+			case 8:
+				return "8";
+			case 9:
+				return "9";
+			case 10:
+				return "T";
+			case 11:
+				return "J";
+			case 12:
+				return "Q";
+			case 13:
+				return "K";
+			case 14:
+				return "A";
+			default:
+				break;
+			}
+			return "Joker";
+		}
+		
 		public static Ranks fromNum(int i) {
 			for (Ranks r: Ranks.values()) {
 				if (r.getRanksNum() == i) {	return r;	}
@@ -124,6 +212,13 @@ public class Card implements Comparator<Card> {
 		if(suit == Suits.EMPTY && rank == Ranks.EMPTY) {
 			return "";
 		}
+		return ("" + this.rank + this.suit);
+	}
+	
+	public String getFullCardName() {
+		if(suit == Suits.EMPTY && rank == Ranks.EMPTY) {
+			return "";
+		}
 		return (this.rank + " of " + this.suit);
 	}
 	
@@ -131,12 +226,16 @@ public class Card implements Comparator<Card> {
 		if(suit == Suits.EMPTY && rank == Ranks.EMPTY) {
 			return "";
 		}
-		return (this.rank + " of " + this.suit);
+		return (this.rank + "" + this.suit);
 	}
 	
 	public boolean isCard(Card card) {
-		if(card.getCardName() == this.getCardName()) { return true; }
-		return false;
+		if(	card.getSuit() == this.getSuit()	&&
+			card.getRank() == this.getRank()	) {
+			return true;
+		} else {
+			return false; 
+		}
 	}
 	
 	public static Card.Ranks findHighestRank(Card[] c) {

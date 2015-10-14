@@ -1,22 +1,29 @@
 package pokerGUI_JavaFX;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import pokerSimCore.Game;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class View1Controller implements javafx.fxml.Initializable {
 
@@ -108,6 +115,9 @@ public class View1Controller implements javafx.fxml.Initializable {
     private Button btnPlay;
     
     @FXML
+    private Button btnCalcOdds;
+    
+    @FXML
     private Label p1position;
     
     @FXML
@@ -139,7 +149,7 @@ public class View1Controller implements javafx.fxml.Initializable {
     
     private ObservableList<String> messages = FXCollections.observableArrayList ();
 
-    public void addHistoryEntry(List<String> list) {
+	public void addHistoryEntry(List<String> list) {
     	Collections.reverse(list);
     	messages.addAll(0, list);
     }
@@ -175,6 +185,13 @@ public class View1Controller implements javafx.fxml.Initializable {
 			@Override
 			public void handle(Event e) {
 				presenter.play();
+			}
+		});
+		
+		btnCalcOdds.setOnAction(new EventHandler() {
+			@Override
+			public void handle(Event e) {
+				showCalcOdds();
 			}
 		});
 	}
@@ -225,6 +242,39 @@ public class View1Controller implements javafx.fxml.Initializable {
 		if(viewData.errorMessage.isError()) {
 			JavaFXApplication.showPopupMessage(viewData.errorMessage.getMessage());
 		}
+	}
+
+	public boolean showCalcOdds() {
+		try {
+		    // Load the fxml file and create a new stage for the popup
+			// FXMLLoader loader = new FXMLLoader(getClass().getResource("OddsCalcDialog.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("OddsCalcDialog2.fxml"));
+			AnchorPane page = loader.load();
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Calculated Odds");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(JavaFXApplication.getMainStage());
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			
+			OddsCalcDialog2Controller controller = loader.getController();
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					controller.setInfo(presenter.calc2());
+				}
+			});
+			
+			// Show the dialog and wait until the user closes it
+		    dialogStage.showAndWait();
+		
+		    return true;
+		
+	  	} catch (IOException e) {
+		    // Exception gets thrown if the fxml file could not be loaded
+		    e.printStackTrace();
+		    return false;
+	  	}
 	}
 	
 	@SuppressWarnings("unchecked")

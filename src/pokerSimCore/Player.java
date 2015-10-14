@@ -21,6 +21,11 @@ public class Player {
 	private @Getter @Setter boolean 	bankRupt;
 	private @Getter			boolean 	capped;				// true if maxPot has been set after betround evaluation
 	
+	public Player() {
+		card1 = new Card();
+		card2 = new Card();
+	}
+	
 	public Player(Game game) {
 		this.game = game;
 		cash = Game.BEGINCASH;
@@ -107,7 +112,7 @@ public class Player {
 		round.receiveBet(toBet);
 	}
 	
-	/* automated decision making */
+	/* automated very simple decision making */
 	public void makeDecision(Round round, int stake) {
 		if(folded || allIn || bankRupt){
 			return;

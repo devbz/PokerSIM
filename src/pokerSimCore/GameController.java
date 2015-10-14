@@ -1,6 +1,11 @@
 package pokerSimCore;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import lombok.Getter;
+import pokerCalculator.Calculator;
+import pokerGUI_JavaFX.OddsOutModel;
 import pokerGUI_JavaFX.ViewData;
 
 public class GameController {
@@ -48,5 +53,15 @@ public class GameController {
 	
 	public void end() {
 		game.endGame();
+	}
+	
+	public HashMap<String, String> calculate() {
+		Calculator calc = new Calculator(game.getPlayers()[0], game.getRound().getTable());
+		return calc.getResults();
+	}
+
+	public ArrayList<OddsOutModel> calc2() {
+		Calculator calc = new Calculator(game.getPlayers()[0], game.getRound().getTable());
+		return calc.getResults2();
 	}
 }

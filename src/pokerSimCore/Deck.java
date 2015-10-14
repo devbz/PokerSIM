@@ -1,8 +1,10 @@
 package pokerSimCore;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Random;
 
-public class Deck {
+public class Deck implements Iterable<Card> {
 	
 	private ArrayList<Card> cards = new ArrayList<Card>();
 	
@@ -14,6 +16,10 @@ public class Deck {
 				cards.add(new Card(i, ii));
 			}
 		}
+	}
+	
+	public Deck(Deck d) {
+		this.cards = new ArrayList<Card>(d.cards);
 	}
 
 	public Card getCard(int i) {
@@ -28,5 +34,30 @@ public class Deck {
 		cards.remove(cardNumber);
 		return c;
 		// Test if this returns every card after a while!
+	}
+	
+	public void removeCard(Card c) {
+		for (Iterator<Card> checkCard = cards.iterator(); checkCard.hasNext();) {
+			if (checkCard.next().isCard(c)) {
+				checkCard.remove();
+			}
+		}
+	}
+	
+	@Override
+	public Iterator<Card> iterator() {
+		return cards.iterator();
+	}
+
+	public int size() {
+		return cards.size();
+	}
+
+	public void removeAll(Collection<Card> handCards) {
+		for(Card c: handCards) {
+			for(Iterator<Card> ci = cards.iterator(); ci.hasNext(); ) {
+				if (((Card) ci.next()).isCard(c)) {	ci.remove();	}
+			}
+		}
 	}
 }

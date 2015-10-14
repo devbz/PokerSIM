@@ -10,13 +10,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lombok.Getter;
 
 
 public class JavaFXApplication extends Application {
 	
 	private static View1Presenter presenter;
 	private static boolean initialized = false;
-	private static Stage mainStage;
+	private @Getter static Stage mainStage;
 	
 	public static View1Presenter getPresenter() {
 		return presenter;
@@ -30,8 +31,8 @@ public class JavaFXApplication extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			mainStage = primaryStage;
-			FXMLLoader fxmlLoader = new FXMLLoader();
-			AnchorPane root = fxmlLoader.load(getClass().getResource("View2.fxml").openStream());
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("View2.fxml"));	// FXMLLoader();
+			AnchorPane root = fxmlLoader.load();											// getClass().getResource("View2.fxml").openStream());
 			presenter = new View1Presenter(fxmlLoader.getController());
 			initialized = true;
 			

@@ -1,5 +1,8 @@
 package pokerGUI_JavaFX;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javafx.application.Platform;
 import pokerSimCore.GameController;
 
@@ -32,6 +35,10 @@ public class View1Presenter {
 		this.gameController = gameController;
 	}
 	
+	public void calcOdds() {
+		
+	}
+	
 	public void updateView() {
 		Platform.runLater(new Runnable() {
 			@Override
@@ -43,5 +50,13 @@ public class View1Presenter {
 	
 	public void initGameEnd() {
 		gameController.end();
+	}
+
+	public HashMap<String, String> calculate() {
+		return gameController.calculate();
+	}
+	
+	public ArrayList<OddsOutModel> calc2() {
+		return gameController.calc2();
 	}
 }

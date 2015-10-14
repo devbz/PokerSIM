@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokerGUI_JavaFX.View1Controller">
+<AnchorPane prefHeight="561.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pokerGUI_JavaFX.View1Controller">
    <children>
       <GridPane layoutX="102.0" layoutY="-272.0" prefWidth="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -221,6 +221,7 @@
                               <Label fx:id="toCall" text="0" GridPane.columnIndex="3" />
                               <TextField fx:id="toBet" text="0" GridPane.columnIndex="1" />
                               <Button fx:id="btnPlay" mnemonicParsing="false" text="Next move" GridPane.columnIndex="6" />
+                              <Button fx:id="btnCalcOdds" mnemonicParsing="false" text="Calculate Odds" GridPane.columnIndex="5" />
                            </children>
                         </GridPane>
                      </children>
