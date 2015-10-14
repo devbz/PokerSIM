@@ -1,6 +1,6 @@
 package pokerCalculator;
 
-/* HandRankFinders are built find a specific combination of cards that 
+/* HandRankFinders are built to find a specific combination of cards that 
  * make up a specific ranked Poker combination via the find() function.
  * Result should be passed via callback to the HandRanker class via foundCombination(). */
 public abstract class HandRankFinder {

@@ -19,7 +19,7 @@ public class Game {
 	private @Getter Player[] players; 			// flat array of players
 	private @Getter ArrayList<Player> roundPlayers;		// players in round
 	
-	private Round round;						// contains all variables for current playing round
+	private @Getter Round round;				// contains all variables for current playing round
 	// private @Getter int dealerPosition;		// dealer position stored outside of subclasses
 	private @Getter Player dealer;
 	private @Setter String gameMessage;			// game action message

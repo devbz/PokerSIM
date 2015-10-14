@@ -30,6 +30,7 @@ public @Data class Combination {
 	
 	public Combination(CombinationRanks r, Combination... c1) {
 		this.drawRank = r;
+		// Safe varargs:
 		for(Combination c: c1) {
 			combinationCards.addAll(c.getCombinationCards());
 		}
@@ -45,39 +46,36 @@ public @Data class Combination {
 	}
 	
 	protected void findKickerValues(Hand h) {
-		int amount = 5 - combinationCards.size();
 		ArrayList<Card> unUsedCards = new ArrayList<Card>(h.getAllCards());
 		unUsedCards.removeAll(combinationCards);
-		while(amount > 0) {
-			Card c = unUsedCards.get(0);
-			amount--;
+		while(!unUsedCards.isEmpty()) {
+			Card c = unUsedCards.remove(0);
 			kickerValues.add(c.getRank().getRanksNum());
-			unUsedCards.remove(c);
 		}
 		for (int i : kickerValues) {
-			kickerNames.add(Card.Ranks.fromNum(i).toString());
+			kickerNames.add("" + Card.Ranks.fromNum(i));
 		}
 	}
 	
 	public String toString() {
 		switch(drawRank) {
 		case FLUSH:
-			return (drawRank + ", " + rank + " high, with kickers: " + kickerValues);
+			return (drawRank + ", " + rank.fullName() + " high, with kickers: " + kickerValues);
 		case THREE_OF_A_KIND:
 		case PAIR:
 		case FOUR_OF_A_KIND:
-			return (drawRank + " of " + rank + "s with kickers: " + kickerValues);
+			return (drawRank + " of " + rank.fullName() + "s with kickers: " + kickerValues);
 		case FULL_HOUSE:
-			return (drawRank + ", " + rank + "s over " + combinationCards.get(3).getRank() + "s with kicker: " + kickerValues);
+			return (drawRank + ", " + rank.fullName() + "s over " + combinationCards.get(3).getRank() + "s with kicker: " + kickerValues);
 		case HIGH_CARD:
-			return (drawRank + " " + rank + " with kickers: " + kickerValues);
+			return (drawRank + " " + rank.fullName() + " with kickers: " + kickerValues);
 		case ROYAL_FLUSH:
 		case STRAIGHT:
 		case STRAIGHT_FLUSH:
-			return (drawRank + " " + rank + " high");
+			return (drawRank + " " + rank.fullName() + " high");
 		case TWO_PAIR:
 			if(combinationCards.size() > 2) {
-				return (drawRank + " of " + rank + " and " + combinationCards.get(2).getRank() + " with kickers: " + kickerValues);
+				return (drawRank + " of " + rank.fullName() + " and " + combinationCards.get(2).getRank().fullName() + " with kickers: " + kickerNames);
 			} else {
 				return "Two Pairs in making";
 			}

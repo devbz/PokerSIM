@@ -120,7 +120,8 @@ public class Round {
 		Collections.sort(rankers, holdemComparator);
 		
 		while (!(pot == 0)) {
-			HandRanker winner = rankers.get(0);
+			HandRanker winner = rankers.size() > 0 ? rankers.get(0) : new HandRanker();
+			if (winner.isEmpty()) {	break;	}
 			rankers.remove(winner);
 			ArrayList<HandRanker> winners = new ArrayList<>();
 			winners.add(winner);
@@ -133,6 +134,9 @@ public class Round {
 			}
 			if (winners.size() > 1) {	splitPot(winners);	}
 			else {	winPot(winner.getHand());	}
+		}
+		if (pot > 0) {
+			//TODO catch this
 		}
 		
 		ArrayList<Hand> winningHands = new ArrayList<>();	//TODO remove this and the Splitters property of HandRanker!
